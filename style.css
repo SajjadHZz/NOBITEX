@@ -28,6 +28,7 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 1rem 4rem;
   backdrop-filter: blur(2px);
 }
@@ -65,6 +66,146 @@ body {
 }
 .navbar__btn:hover {
   transform: scale(1.1);
+}
+.navbar__drawer {
+  display: none;
+}
+.navbar__drawer_toggle {
+  appearance: none;
+}
+.navbar__drawer_hamburger {
+  display: inline-block;
+  vertical-align: middle;
+  z-index: 5;
+  position: relative;
+}
+.navbar__drawer_hamburger::after,
+.navbar__drawer_hamburger::before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 3px;
+  background: white;
+  margin: 3px 0;
+  transition: all ease 300ms;
+}
+.navbar__drawer_hamburger span {
+  display: block;
+  width: 15px;
+  height: 3px;
+  background: white;
+  transition: all ease 300ms;
+}
+.navbar__drawer_toggle:checked + .navbar__drawer_hamburger span {
+  opacity: 0;
+}
+.navbar__drawer_toggle:checked + .navbar__drawer_hamburger::after {
+  transform: rotate(-45deg) translateY(-8px);
+}
+.navbar__drawer_toggle:checked + .navbar__drawer_hamburger::before {
+  transform: rotate(45deg) translateY(8px);
+}
+.navbar__drawer_close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 100vh;
+  background: #00000050;
+  z-index: -1;
+  opacity: 0;
+  transition: all ease 500ms;
+}
+.navbar__drawer_toggle:checked ~ .navbar__drawer_close {
+  opacity: 1;
+  width: 100vw;
+}
+.navbar__drawer_side {
+  width: 60%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  z-index: 3;
+  transition: all ease 700ms;
+}
+.navbar__drawer_side::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  background-color: var(--bgColor);
+  width: 100%;
+  height: 100%;
+}
+.navbar__drawer_toggle:checked ~ .navbar__drawer_side {
+  left: 0;
+}
+.navbar__drawer_content {
+  position: relative;
+  padding: 2rem;
+}
+.navbar__drawer_logo {
+  width: 3rem;
+  vertical-align: middle;
+}
+.navbar__drawer_title {
+  display: inline-block;
+  font-size: xx-large;
+  margin-right: 5px;
+}
+.navbar__drawer_list {
+  margin-top: 2rem;
+}
+.navbar__drawer_list li {
+  width: 100%;
+  padding: 1rem 5px;
+  font-size: large;
+  cursor: pointer;
+  transition: all ease 300ms 50ms;
+}
+.navbar__drawer_list li:hover {
+  background: var(--oneColor);
+}
+.navbar__drawer_list li:not(:last-child) {
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+}
+.navbar__drawer_list_icon {
+  width: 1rem;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+.navbar__drawer_light {
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  left: 0;
+  /* box-shadow: 0 0 400px 200px var(--towColor); */
+  animation: glowRight 15s infinite;
+}
+.navbar__drawer_copyright {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: large;
+  color: gray;
+  opacity: 0.5;
+}
+.navbar__drawer_copyright_link {
+  position: absolute;
+  bottom: 3rem;
+  right: 1rem;
+  color: white;
+  font-size: x-large;
+  text-decoration: none;
+  transition: all ease 300ms 50ms;
+}
+.navbar__drawer_copyright_link:hover {
+  color: var(--towColor);
+  text-shadow: 0 0 5px var(--oneColor);
+  transform: scale(1.05);
 }
 
 /* HEADER */
@@ -947,32 +1088,12 @@ body {
   .navbar__menu {
     display: none;
   }
-
-  /* .navbar__drawer {
+  .navbar__btn {
+    display: none;
   }
-  .navbar__drawer_toggle {
-    appearance: none;
+  .navbar__drawer {
+    display: inline-block;
   }
-  .navbar__drawer_hamburger::after,
-  .navbar__drawer_hamburger::before {
-    content: "";
-    display: block;
-    width: 10px;
-    height: 2px;
-    background: white;
-    margin: 2px 0;
-  }
-  .navbar__drawer_hamburger label {
-    display: block;
-    width: 10px;
-    height: 2px;
-    background: white;
-  }
-  .navbar__drawer_hamburger:checked label {
-    background: red;
-  }
-  .navbar__drawer_side {
-  } */
   .header {
     padding-top: 5rem;
   }
@@ -1002,6 +1123,9 @@ body {
   }
 }
 @media screen and (max-width: 500px) {
+  .navbar__drawer_side {
+    width: 80%;
+  }
   .header__title {
     font-size: x-large;
   }
